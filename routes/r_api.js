@@ -14,4 +14,7 @@ app.use('/category', categoryRoutes);
 import postRoutes from '../services/Post/routes.js';
 app.use('/post', postRoutes);
 
+import likeRoutes from '../services/Like/LikeRoutes.js';
+app.use('/like', likeRoutes);
+
 export default { app };
