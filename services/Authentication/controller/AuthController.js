@@ -5,7 +5,7 @@ import "dotenv/config";
 import User from "../../User/model/UserModel.js";
 
 let salt = bcrypt.genSaltSync(10);
-let secret_key = process.env.SECRET_KEY;
+let secret_key = process.env.secretKey;
 
 const registerUser = async (req, res) => {
   try {
@@ -86,4 +86,41 @@ const loginUser = async (req, res) => {
   }
 };
 
-export default { registerUser, loginUser };
+const resetPassword = async (req, res) => {
+  //let userId = req.query.userId;
+  let { email, newPassword } = req.body;
+  var resetHashPassword = bcrypt.hashSync(newPassword, salt);
+  await User.findOne(email).then((value) => {
+    if (!value) {
+      return res.status(400).json({
+        status: 400,
+        message: "User not found",
+      });
+    } else {
+      User.update(
+        {
+          password: resetHashPassword,
+        },
+        {
+          where: {
+            email: email,
+          },
+        }
+      )
+        .then((_) =>
+          res.status(200).json({
+            status: 200,
+            message: "Password changed",
+          })
+        )
+        .catch((error) =>
+          res.status(500).json({
+            status: 500,
+            message: error,
+          })
+        );
+    }
+  });
+};
+
+export default { registerUser, loginUser, resetPassword };

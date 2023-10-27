@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 
 import db from "../../db.js";
-import User from "../User/model.js";
+import User from "../User/model/UserModel.js";
 import Post from '../Post/model.js';
 
 class Likes extends Model {}

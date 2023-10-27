@@ -2,28 +2,25 @@ import Post from "./model.js";
 import slug from "slug";
 
 const fetchPosts = async (req, res) => {
-  try {
-    await Post.findAll()
-      .then((data) => {
-        if (data.length === 0) {
-          return res.status(200).json({
+  await Post.findAll()
+    .then((data) => {
+      return data.length == 0
+        ? res.status(200).json({
+            status: 200,
             message: "Nothing to Display",
+          })
+        : res.status(200).json({
+            status: 200,
+            count: data.length,
+            data: data,
           });
-        }
-        return res.status(200).json({
-          data: data,
-        });
-      })
-      .catch((error) => {
-        return res.status(500).json({
-          message: error,
-        });
+    })
+    .catch((error) => {
+      return res.status(500).json({
+        status: 500,
+        message: error,
       });
-  } catch (error) {
-    return res.status(500).json({
-      message: error,
     });
-  }
 };
 
 const fetchPost = async (req, res) => {

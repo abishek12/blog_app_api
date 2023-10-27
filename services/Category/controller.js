@@ -1,32 +1,27 @@
 import Category from "./model.js";
 
-const fetchContacts = async (req, res) => {
-  try {
-    await Category.findAll()
-      .then((data) => {
-        if (data.length === 0) {
-          return res.status(500).json({
+const fetchCategories = async (req, res) => {
+  await Category.findAll()
+    .then((data) => {
+      return data.length == 0
+        ? res.status(500).json({
+            status: 200,
             message: "Nothing to Display",
-          });
-        } else {
-          return res.status(200).json({
+          })
+        : res.status(200).json({
+            status: 200,
+            count: data.length,
             data: data,
           });
-        }
-      })
-      .catch((error) => {
-        return res.status(500).json({
-          message: error,
-        });
+    })
+    .catch((error) => {
+      return res.status(500).json({
+        message: error,
       });
-  } catch (error) {
-    return res.status(500).json({
-      message: error,
     });
-  }
 };
 
-const fetchContact = async (req, res) => {
+const fetchCategory = async (req, res) => {
   try {
     let id = req.query.id;
     await Category.findByPk(id)
@@ -43,7 +38,7 @@ const fetchContact = async (req, res) => {
   }
 };
 
-const postContact = async (req, res) => {
+const postCategory = async (req, res) => {
   try {
     let { title, description, author } = req.body;
     let data = {
@@ -69,7 +64,7 @@ const postContact = async (req, res) => {
   }
 };
 
-const updateContact = async (req, res) => {
+const updateCategory = async (req, res) => {
   try {
     let id = req.query.update;
     let { title, description, author } = req.body;
@@ -100,7 +95,7 @@ const updateContact = async (req, res) => {
   }
 };
 
-const deleteContact = async (req, res) => {
+const deleteCategory = async (req, res) => {
   try {
     let id = req.query.delete;
     await Category.destroy({
@@ -126,9 +121,9 @@ const deleteContact = async (req, res) => {
 };
 
 export default {
-  fetchContacts,
-  fetchContact,
-  postContact,
-  updateContact,
-  deleteContact,
+  fetchCategories,
+  fetchCategory,
+  postCategory,
+  updateCategory,
+  deleteCategory,
 };

@@ -3,10 +3,10 @@ import controller from './controller.js';
 
 const appRoutes = Express.Router();
 
-appRoutes.get('/', controller.fetchContacts);
-appRoutes.get('/:id', controller.fetchContact);
-appRoutes.post('/', controller.postContact);
-appRoutes.put('/', controller.updateContact);
-appRoutes.delete('/', controller.deleteContact);
+appRoutes.get('/', controller.fetchCategories);
+appRoutes.get('/:id', controller.fetchCategory);
+appRoutes.post('/', controller.postCategory);
+appRoutes.put('/', controller.updateCategory);
+appRoutes.delete('/', controller.deleteCategory);
 
 export default appRoutes;

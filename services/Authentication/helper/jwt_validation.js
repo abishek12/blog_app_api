@@ -1,7 +1,7 @@
 import Jwt from "jsonwebtoken";
 import 'dotenv/config';
 
-let secret_key = process.env.SECRET_KEY;
+let secret_key = process.env.secretKey;
 
 const validateToken = (req, res, next) => {
   // Retrieve the token from the request headers, query string, or cookies

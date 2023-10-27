@@ -6,8 +6,8 @@ import helmet from 'helmet';
 
 const app = Express();
 
-const port = process.env.PORT || 5000;
-const version = process.env.VERSION;
+const port = process.env.port || 5000;
+const version = process.env.apiVersion;
 
 /**
  * use of middleware

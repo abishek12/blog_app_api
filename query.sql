@@ -1,5 +1,7 @@
 create database blog;
 
+use blog;
+
 create table user(
 id int primary key auto_increment not null,
 firstName varchar(32) not null,
@@ -32,8 +34,8 @@ expert varchar(255),
 content text not null,
 created_at timestamp default current_timestamp,
 updated_at timestamp default current_timestamp on update current_timestamp,
-foreign key (author) references user(id) on delete cascade,
-foreign key (category) references category(id) on delete cascade
+foreign key (author_id) references user(id) on delete cascade,
+foreign key (category_id) references category(id) on delete cascade
 );
 
 create table comment (

@@ -7,8 +7,8 @@ const appRoutes = Express.Router();
 
 appRoutes.get("/", controller.fetchPosts);
 appRoutes.get("/:id", controller.fetchPost);
-appRoutes.post("/", validateToken, controller.createPost);
-appRoutes.put("/", validateToken, controller.updatePost);
-appRoutes.delete("/", validateToken, controller.deletePost);
+appRoutes.post("/", controller.createPost);
+appRoutes.put("/", controller.updatePost);
+appRoutes.delete("/", controller.deletePost);
 
 export default appRoutes;

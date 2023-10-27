@@ -1,54 +1,45 @@
 import User from "../model/UserModel.js";
 
 const fetchUsers = async (req, res) => {
-  try {
-    await User.findAll()
-      .then((data) => {
-        if (data.length === 0) {
-          return res.status(200).json({
+  await User.findAll()
+    .then((data) => {
+      return data.length == 0
+        ? res.status(200).json({
+            status: 200,
             message: "Nothing to Display",
+          })
+        : res.status(200).json({
+            status: 200,
+            count: data.length,
+            data: data,
           });
-        }
-        return res.status(200).json({
-          data: data,
-        });
+    })
+    .catch((error) =>
+      res.status(500).json({
+        status: 500,
+        message: error,
       })
-      .catch((error) => {
-        return res.status(500).json({
-          message: error,
-        });
-      });
-  } catch (error) {
-    return res.status(500).json({
-      message: error,
-    });
-  }
+    );
 };
 
 const fetchUser = async (req, res) => {
-  try {
-    let id = req.params.id;
-    await User.findByPk(id)
-      .then((data) => {
-        return res.status(200).json({
-          data: data,
-        });
-      })
-      .catch((error) => {
-        return res.status(500).json({
-          message: error,
-        });
+  let id = req.params.userId;
+  await User.findByPk(id)
+    .then((data) => {
+      return res.status(200).json({
+        data: data,
       });
-  } catch (error) {
-    return res.status(500).json({
-      message: error,
+    })
+    .catch((error) => {
+      return res.status(500).json({
+        message: error,
+      });
     });
-  }
 };
 
 const deleteUser = async (req, res) => {
   try {
-    let id = req.query.id;
+    let id = req.query.deleteProfile;
     await User.destroy({
       where: {
         id: id,
@@ -72,7 +63,7 @@ const deleteUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  let id = req.query.id;
+  let id = req.query.updateProfile;
   try {
     let { firstName, middleName, lastName } = req.body;
     let data = {

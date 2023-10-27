@@ -2,6 +2,11 @@ import Express from 'express';
 
 const app = Express.Router();
 
+app.get("/", (req,res) => res.status(200).json({
+    status: 200,
+    mesage: "Welcome!!!"
+}))
+
 import userRoutes from '../services/User/routes/UserRoutes.js';
 app.use('/user', userRoutes);
 
